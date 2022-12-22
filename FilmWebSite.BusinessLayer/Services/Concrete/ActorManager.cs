@@ -1,6 +1,9 @@
 ﻿using FilmWebSite.BusinessLayer.Services.Abstract;
+using FilmWebSite.Core.Entities;
+using FilmWebSite.Core.Repositories;
+using FilmWebSite.Core.UnitOfWorks;
 using FilmWebSite.DataAccessLayer.Context;
-using FilmWebSite.DataAccessLayer.Entities;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,59 +14,70 @@ namespace FilmWebSite.BusinessLayer.Services.Concrete
 {
     public class ActorManager : IActorService
     {
-        private readonly FilmWebSiteContext _context;
-
-        public ActorManager(FilmWebSiteContext context)
+        
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IActorRepository _actorRepository;
+        private readonly IFilmActorRepository _filmActorRepository;
+        public ActorManager( IActorRepository actorRepository, IUnitOfWork unitOfWork, IFilmActorRepository filmActorRepository)
         {
-            _context = context;
+            _actorRepository = actorRepository;
+            _unitOfWork = unitOfWork;
+            _filmActorRepository = filmActorRepository;
         }
 
         public bool ActorExists(int actorId)
         {
-            return _context.Actors.Any(a => a.Id == actorId);
+            return _actorRepository.Any(a => a.Id == actorId);
+
         }
 
         public bool CreateActor(Actor actor)
         {
-            _context.Add(actor);
-            return Save();
+            _actorRepository.Add(actor);
+            return _unitOfWork.Commit();
         }
 
         public bool DeleteActor(Actor actor)
         {
-            _context.Remove(actor);
-            return Save();
+            _actorRepository.Remove(actor);
+            return _unitOfWork.Commit();
         }
 
         public Actor GetActor(int actorId)
         {
-            return _context.Actors.Where(a => a.Id == actorId).FirstOrDefault();
+            return _actorRepository.GetById(actorId);
         }
 
         public ICollection<Actor> GetActors()
         {
-            return _context.Actors.ToList();
+            return _actorRepository.GetAll().ToList();
+
         }
 
         public ICollection<Actor> GetActorsOfAFilm(int filmId)
         {
-            return _context.FilmActors.Where(fa=>fa.FilmId == filmId).Select(fa=>fa.Actor).ToList();  
+            return _filmActorRepository.Where(fa => fa.FilmId == filmId)
+                .Select(fa => fa.Actor)
+                .ToList();
+
         }
 
         public ICollection<Film> GetFilmsOfAActor(int actorId)
         {
-            return _context.FilmActors.Where(fa => fa.ActorId == actorId).Select(fa => fa.Film).ToList();
+            return _filmActorRepository.Where(fa => fa.ActorId.Equals(actorId))
+                .Select(fa => fa.Film)
+                .ToList();
+
         }
 
         public bool Save()
         {
-            var saved  = _context.SaveChanges();
-            return saved > 0 ? true : false;
+            return _unitOfWork.Commit();
         }
 
         public bool UpdateActor(Actor actor)
         {
-            _context.Update(actor);
+            _actorRepository.Update(actor);
             return Save();
         }
     }

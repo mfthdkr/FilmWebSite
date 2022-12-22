@@ -1,5 +1,5 @@
 ﻿using FilmWebSite.DataAccessLayer.Context;
-using FilmWebSite.DataAccessLayer.Entities;
+using FilmWebSite.Core.Entities;
 
 
 namespace FilmWebSite.DataAccessLayer.Seeding

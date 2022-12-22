@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using FilmWebSite.BusinessLayer.DTOs;
+using FilmWebSite.Core.DTOs;
 using FilmWebSite.BusinessLayer.Services.Abstract;
-using FilmWebSite.DataAccessLayer.Entities;
+using FilmWebSite.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FilmWebSite.WebAPI.Controllers
@@ -53,7 +53,7 @@ namespace FilmWebSite.WebAPI.Controllers
             if (!_filmService.FilmExists(filmId))
                 return NotFound($"{filmId} Id'li film sistemde kayıtlı değil");
 
-            var film = _mapper.Map<FilmDto>(_filmService.GetFilm(filmId));
+            var film = _mapper.Map<FilmDto>( _filmService.GetFilm(filmId));
 
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -64,7 +64,7 @@ namespace FilmWebSite.WebAPI.Controllers
         /// <summary>
         /// Name'e göre ilgili Filmi getirir.
         /// </summary>
-        /// <param name="filmId"></param>
+        /// <param name="filmName"></param>
         /// <returns></returns>
         [HttpGet("GetFilmByName/{filmName}")]
         [ProducesResponseType(200, Type = typeof(Film))]
@@ -74,7 +74,7 @@ namespace FilmWebSite.WebAPI.Controllers
             if (!_filmService.GetFilms().Any(f=>f.Name.Trim().ToLower() == filmName.Trim().ToLower()))
                 return NotFound($"{filmName} isimli film sistemde kayıtlı değil");
 
-            var film = _mapper.Map<FilmDto>(_filmService.GetFilm(filmName));
+            var film = _mapper.Map<FilmDto>( _filmService.GetFilm(filmName));
 
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -177,7 +177,7 @@ namespace FilmWebSite.WebAPI.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult DeleteFilm(int filmId)
+        public  IActionResult DeleteFilm(int filmId)
         {
             if (!_filmService.FilmExists(filmId))
             {
@@ -185,7 +185,7 @@ namespace FilmWebSite.WebAPI.Controllers
             }
 
             var comments = _commentService.GetCommentsOfAFilm(filmId);
-            var film = _filmService.GetFilm(filmId);
+            var film =  _filmService.GetFilm(filmId);
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

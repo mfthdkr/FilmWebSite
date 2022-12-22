@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using FilmWebSite.BusinessLayer.DTOs;
+using FilmWebSite.Core.DTOs;
 using FilmWebSite.BusinessLayer.Services.Abstract;
-using FilmWebSite.DataAccessLayer.Entities;
+using FilmWebSite.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FilmWebSite.WebAPI.Controllers
@@ -88,7 +88,7 @@ namespace FilmWebSite.WebAPI.Controllers
         [HttpPost("CreateComment")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public IActionResult CreateComment(
+        public  IActionResult CreateComment(
             [FromQuery] int userId, [FromQuery] int filmId,
             [FromBody] CommentDto commentDto)
         {
@@ -96,7 +96,7 @@ namespace FilmWebSite.WebAPI.Controllers
                 return BadRequest(ModelState);
 
             var comment = _mapper.Map<Comment>(commentDto);
-            comment.Film = _filmService.GetFilm(filmId);
+            comment.Film =  _filmService.GetFilm(filmId);
             comment.User = _userService.GetUser(userId);
 
             if (!_commentService.CreateComment(comment))

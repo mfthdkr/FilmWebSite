@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FilmWebSite.BusinessLayer.DTOs
+namespace FilmWebSite.Core.Entities
 {
-    public class CityDto
+    public class Category
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public ICollection<FilmCategory> FilmCategories { get; set; }
     }
 }

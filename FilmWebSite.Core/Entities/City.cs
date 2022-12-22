@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FilmWebSite.DataAccessLayer.Entities
+namespace FilmWebSite.Core.Entities
 {
     public class City
     {

@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FilmWebSite.DataAccessLayer.Entities
+namespace FilmWebSite.Core.Entities
 {
-    public class FilmCategory
+    public class FilmActor
     {
         public int FilmId { get; set; }
-        public int CategoryId { get; set; }
+        public int ActorId { get; set; }
         public Film Film { get; set; }
-        public Category Category { get; set; }
+        public Actor Actor { get; set; }
     }
 }

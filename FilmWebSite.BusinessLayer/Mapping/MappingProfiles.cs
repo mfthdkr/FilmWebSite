@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using FilmWebSite.BusinessLayer.DTOs;
-using FilmWebSite.DataAccessLayer.Entities;
+using FilmWebSite.Core.DTOs;
+using FilmWebSite.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

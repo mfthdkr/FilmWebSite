@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FilmWebSite.DataAccessLayer.Entities
+namespace FilmWebSite.Core.DTOs
 {
-    public class Category
+    public class CategoryDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<FilmCategory> FilmCategories { get; set; }
     }
 }

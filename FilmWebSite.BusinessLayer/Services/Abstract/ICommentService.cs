@@ -1,4 +1,5 @@
-﻿using FilmWebSite.DataAccessLayer.Entities;
+﻿using FilmWebSite.Core.Entities;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;

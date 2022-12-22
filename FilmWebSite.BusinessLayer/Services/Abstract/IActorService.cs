@@ -1,4 +1,5 @@
-﻿using FilmWebSite.DataAccessLayer.Entities;
+﻿using FilmWebSite.Core.Entities;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace FilmWebSite.BusinessLayer.Services.Abstract
         Actor GetActor(int actorId);
         ICollection<Actor> GetActorsOfAFilm(int filmId);
         ICollection<Film> GetFilmsOfAActor(int actorId);
-        bool ActorExists(int actorId);  
+        bool ActorExists(int actorId);
         bool CreateActor(Actor actor);
         bool UpdateActor(Actor actor);
         bool DeleteActor(Actor actor);

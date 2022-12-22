@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using FilmWebSite.BusinessLayer.DTOs;
+using FilmWebSite.Core.DTOs;
 using FilmWebSite.BusinessLayer.Services.Abstract;
-using FilmWebSite.DataAccessLayer.Entities;
+using FilmWebSite.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FilmWebSite.WebAPI.Controllers
